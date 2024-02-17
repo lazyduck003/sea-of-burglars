@@ -1,0 +1,144 @@
+[gd_scene load_steps=14 format=3 uid="uid://xcjrjq5cbn7y"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_2v3wm"]
+[ext_resource type="PackedScene" uid="uid://cqts7lgv41k6u" path="res://scenes/blunder.tscn" id="2_nkdcm"]
+[ext_resource type="Script" path="res://scripts/blunder.gd" id="3_nm2p8"]
+[ext_resource type="PackedScene" uid="uid://dwn5k0juq5xde" path="res://scenes/flintlock.tscn" id="4_kp0ig"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xk8km"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_67y6s"]
+
+[sub_resource type="GDScript" id="GDScript_0babv"]
+script/source = "extends Node3D
+
+
+@onready var ammo: int = 5
+@onready var needsReload = false
+@onready var place = 1 #place 1 or 2  in 2 weapons slots
+@onready var AimShootAnims = $AimShoot
+
+
+		
+	# weapon swap input logic
+	# aim in and out logic (use those functions down there)
+	
+	
+	
+	
+func begin_aim():
+	AimShootAnims.play(\"AIM IN FLINTLOCK\")
+	
+	
+func end_aim(): 
+	pass	
+	
+	
+func swap_weapon(): 
+	#return blunder pose to original
+
+	self.visible == false
+	
+	
+"
+
+[sub_resource type="Animation" id="Animation_wiind"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_ifwwr"]
+resource_name = "move"
+
+[sub_resource type="Animation" id="Animation_2m207"]
+resource_name = "shoot"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8k7ga"]
+_data = {
+"idle": SubResource("Animation_wiind"),
+"move": SubResource("Animation_ifwwr"),
+"shoot": SubResource("Animation_2m207")
+}
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_k8clu"]
+graph_offset = Vector2(-326.135, 97.3793)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hn37q"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Camera3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Camera3D/blunder:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Camera3D/blunder:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Camera3D/blunder:scale")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("Camera3D/blunder:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath("Camera3D/flintlock:position")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("Camera3D/flintlock:rotation")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("Camera3D/flintlock:scale")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+properties/10/path = NodePath("Camera3D/flintlock:visible")
+properties/10/spawn = true
+properties/10/replication_mode = 2
+properties/11/path = NodePath("PlayerAnims:current_animation")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+collision_layer = 2
+script = ExtResource("1_2v3wm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.39581, 0, 0, 0, 1, 0.0036693, 1.48817, 0.00448429)
+mesh = SubResource("CapsuleMesh_xk8km")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0036693, 1.01895, 0.00448429)
+shape = SubResource("CapsuleShape3D_67y6s")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1.42857, 0, 0, 0, 1.42857, 0, 0, 0, 1.42857, 0, 2.245, 0)
+fov = 90.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 2
+
+[node name="blunder" parent="Camera3D" instance=ExtResource("2_nkdcm")]
+visible = false
+script = ExtResource("3_nm2p8")
+
+[node name="flintlock" parent="Camera3D" instance=ExtResource("4_kp0ig")]
+script = SubResource("GDScript_0babv")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8k7ga")
+}
+tree_root = SubResource("AnimationNodeBlendTree_k8clu")
+anim_player = NodePath("../PlayerAnims")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hn37q")
+
+[node name="PlayerAnims" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8k7ga")
+}

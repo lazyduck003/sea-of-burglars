@@ -1,0 +1,80 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://oameki4qk3ti"
+path="res://.godot/imported/galleon.glb-b68d9abc050d3de6d9f6b9ca86767083.scn"
+
+[deps]
+
+source_file="res://models/galleon/galleon.glb"
+dest_files=["res://.godot/imported/galleon.glb-b68d9abc050d3de6d9f6b9ca86767083.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"nodes": {
+"PATH:shp_captains_cabin_window_feature_01_a/shp_captains_cabin_window_feature_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 1
+},
+"PATH:shp_galleon_lower_hull_01_a/shp_galleon_lower_hull_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 1
+},
+"PATH:shp_galleon_main_deck_01_a/shp_galleon_main_deck_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 2
+},
+"PATH:shp_galleon_upper_hull_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 2
+},
+"PATH:shp_hatch_01_a/shp_hatch_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 1
+},
+"PATH:shp_hull_rudder_01_a/shp_hull_rudder_01_a_001": {
+"generate/physics": true
+},
+"PATH:shp_int_brig_stairs_01_a/shp_int_brig_stairs_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 1
+},
+"PATH:shp_interior_brig_deck_01_a/shp_interior_brig_deck_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 2
+},
+"PATH:shp_interior_captains_cabin_01_a/shp_interior_captains_cabin_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 2
+},
+"PATH:shp_interior_map_deck_01_a/shp_interior_map_deck_01_a_001": {
+"generate/physics": true,
+"physics/shape_type": 2
+},
+"PATH:shp_stern_staircase_01_b_002/shp_stern_staircase_01_b_003": {
+"generate/physics": true,
+"physics/shape_type": 1
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1
